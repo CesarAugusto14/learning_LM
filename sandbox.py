@@ -1,6 +1,6 @@
 import torch 
 from time import time
-from models import multilayer_perceptron, forward
+from models import multilayer_perceptron, MLP
 from utils import tokenization, build_dataset, test_train_split, train
 
 # Setting up the device:

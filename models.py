@@ -29,3 +29,25 @@ def forward(params, X, block_size=3):
     logits = h@W2 + b2
     return logits
 
+class MLP():
+    """
+    The following class aims to do a Multilayer Perceptron, using 
+    the sequential class from PyTorch. It should be fairly similar 
+    to the multilayer_perceptron function, but allowing several 
+    layers. 
+    """
+    def __init__(self, block_size : int = 3, 
+                 emb_size : int = 2, 
+                 n_units : int = 100, 
+                 n_layers : int = 1):
+        self.model = nn.Sequential().to(device)
+        self.model.add_module('embedding', nn.Embedding(27, emb_size))
+        for i in range(n_layers):
+            self.model.add_module(f'linear_{i}', nn.Linear(block_size * emb_size, n_units))
+            self.model.add_module(f'tanh_{i}', nn.Tanh())
+        self.model.add_module('output', nn.Linear(n_units, 27))
+        self.parameters = list(self.model.parameters())
+        
+        
+    def forward(self, X):
+        return self.model(X)

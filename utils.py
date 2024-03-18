@@ -1,7 +1,7 @@
 import torch
 from torch.nn import functional as F
 from models import forward
-
+from tqdm import tqdm
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 def tokenization(data = 'data/names.txt'):
     words = open(data, 'r').read().split()
@@ -36,7 +36,7 @@ def train(params, X, Y, X_dev, Y_dev, n_epochs = 1000, learning_rate = .5, batch
         p.requires_grad_()
     
     g = torch.Generator().manual_seed(42)
-    for _ in range(n_epochs):
+    for _ in tqdm(range(n_epochs)):
         # Mini-batch construction:
         ix = torch.randint(0, X.shape[0], (batch_size,), generator=g)
 
